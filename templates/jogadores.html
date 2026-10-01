@@ -22,19 +22,41 @@
             </div>
             <div class="linha-campos">
                 <div class="campo">
-                    <label for="idade">Idade</label>
-                    <input type="number" id="idade" name="idade" min="0">
+                    <label for="numero_camisa">Número da camisa</label>
+                    <input type="number" id="numero_camisa" name="numero_camisa" min="0">
                 </div>
+
+
                 <div class="campo">
-                    <label for="posicao">Posição</label>
-                        TROCAR PARA SELECT OPTION
-                    <input type="text" id="posicao" name="posicao" placeholder="Ex: Atacante">
+                    Posição
+                    <label>
+                        <input name="posicao" value="1" type="radio">
+                        Zagueiro
+                    </label>
+                    <label>
+                        <input name="posicao" value="2" type="radio">
+                        Atacante
+                    </label>
+                    <label>
+                        <input name="posicao" value="3" type="radio">
+                        Lateral
+                    </label>
+                    <label>
+                        <input name="posicao" value="4" type="radio">
+                        Goleiro
+                    </label>
+
                 </div>
+
+
+
             </div>
             <div class="campo">
                 <label for="time_id">Time</label>
                 <select id="time_id" name="time_id">
-                    <option value="">Sem time</option>
+                    {% for time in times %}
+                    <option value="{{time.id}}">{{time.nome}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="acoes-form">
