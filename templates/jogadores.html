@@ -30,19 +30,19 @@
                 <div class="campo">
                     Posição
                     <label>
-                        <input name="posicao" value="1" type="radio">
+                        <input name="posicao" value="Zagueiro" type="radio">
                         Zagueiro
                     </label>
                     <label>
-                        <input name="posicao" value="2" type="radio">
+                        <input name="posicao" value="Atacante" type="radio">
                         Atacante
                     </label>
                     <label>
-                        <input name="posicao" value="3" type="radio">
+                        <input name="posicao" value="Lateral" type="radio">
                         Lateral
                     </label>
                     <label>
-                        <input name="posicao" value="4" type="radio">
+                        <input name="posicao" value="Goleiro" type="radio">
                         Goleiro
                     </label>
 
@@ -71,7 +71,28 @@
         <h2>Lista de Jogadores</h2>
         {% if jogadores %}
         <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Número da camisa</th>
+                <th>Posição</th>
+                <th>Time</th>
+            </tr>
 
+            </thead>
+
+            <tbody>
+            {% for jogador in jogadores %}
+            <tr>
+                <td>{{ jogador.id }}</td>
+                <td>{{ jogador.nome }}</td>
+                <td>{{ jogador.numero_camisa }}</td>
+                <td>{{ jogador.posicao }}</td>
+                <td>{{ jogador.time_id }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
         </table>
         {% else %}
             <p class="vazio">Nenhum jogador cadastrado ainda.</p>

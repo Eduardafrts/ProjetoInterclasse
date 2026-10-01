@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Date
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker, scoped_session
 
 
@@ -39,9 +39,9 @@ class Partida(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     time_casa_id = Column(Integer, ForeignKey("times.id", ondelete="CASCADE"), nullable=False)
     time_visitante_id = Column(Integer, ForeignKey("times.id", ondelete="CASCADE"), nullable=False)
-    gols_casa = Column(Integer, default=0)
-    gols_visitante = Column(Integer, default=0)
-    data_partida = Column(String(20))
+    gols_casa = Column(Integer)
+    gols_visitante = Column(Integer)
+    data_partida = Column(Date)
 
 def __repr__(self):
     return f'Partida {self.id}, {self.time_casa_id}, {self.time_visitante_id}, {self.gols_casa}, {self.gols_visitante}, {self.data_partida}'
