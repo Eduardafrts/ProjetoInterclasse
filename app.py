@@ -1,6 +1,7 @@
+# Bibliotecas --------------------------------------------------------------
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy import select
-
+from banco import tabela_time, tabela_jogador, tabela_partida
 from database import *
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -10,37 +11,24 @@ app.secret_key = "chave-secreta-interclasse-2026"
 
 @app.route("/")
 def dashboard():
-    # 1- Montar o select
-    times_sql = select(Time)
-    # 2- Executar o select
-    times = db_session.execute(times_sql).scalars().all()
+    times = tabela_time.select_quantidade_total()
+    jogadores = tabela_jogador.select_quantidade_total()
+    partidas = tabela_partida.select_quantidade_total()
 
-    # 1- Montar o select
-    jogadores_sql = select(Jogador)
-    # 2- Executar o select
-    jogadores = db_session.execute(jogadores_sql).scalars().all()
-
-    partidas_sql = select(Partida)
-    # 2- Executar o select
-    partidas = db_session.execute(partidas_sql).scalars().all()
 
     return render_template(
         "dashboard.html",
-        total_jogadores=len(jogadores),
-        total_times=len(times),
-        total_partidas=len(partidas),
+        total_jogadores=jogadores,
+        total_times=times,
+        total_partidas=partidas,
     )
 
 
 @app.route("/jogadores")
 def listar_jogadores():
 
-    # 1- Montar o select
-    jogadores_sql = select(Jogador)
-    # 2- Executar o select
-    jogadores = db_session.execute(jogadores_sql).scalars().all()
+    jogadores = tabela_jogador.select_todos()
     print(jogadores)
-
     return render_template("jogadores.html", jogadores=jogadores)
 
 
