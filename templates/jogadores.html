@@ -54,7 +54,7 @@
             <div class="campo">
                 <label for="time_id">Time</label>
                 <select id="time_id" name="time_id">
-                    {% for time in times %}
+                    {% for time, jogadores in times %}
                     <option value="{{time.id}}">{{time.nome}}</option>
                     {% endfor %}
                 </select>

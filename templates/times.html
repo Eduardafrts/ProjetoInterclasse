@@ -48,17 +48,19 @@
                 <th>Nome</th>
                 <th>Turma</th>
                 <th>Responsável</th>
+                <th>Jogadores/th>
             </tr>
 
             </thead>
 
             <tbody>
-            {% for time in times %}
+            {% for time, jogadores in times %}
             <tr>
                 <td>{{ time.id }}</td>
                 <td>{{ time.nome }}</td>
                 <td>{{ time.turma }}</td>
                 <td>{{ time.responsavel }}</td>
+                <td>{{ jogadores }}</td>
             </tr>
             {% endfor %}
             </tbody>
