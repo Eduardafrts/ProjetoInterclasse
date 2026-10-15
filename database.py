@@ -17,8 +17,8 @@ class Time(Base):
     turma = Column(String(20))
     responsavel = Column(String(100))
 
-def __repr__(self):
-    return f'Time {self.id}, {self.nome}, {self.turma}, {self.responsavel}'
+    def __repr__(self):
+        return f'<Time: {self.nome}>'
 
 class Jogador(Base):
     __tablename__ = "jogadores"
@@ -29,8 +29,9 @@ class Jogador(Base):
     posicao = Column(String(50))
     time_id = Column(Integer, ForeignKey("times.id", ondelete="SET NULL"))
 
-def __repr__(self):
-    return f'Jogador {self.nome}, {self.numero_camisa}, {self.posicao}, {self.time_id}'
+    def __repr__(self):
+        return f'<Jogador: {self.nome}>'
+
 
 
 class Partida(Base):
@@ -43,8 +44,8 @@ class Partida(Base):
     gols_visitante = Column(Integer)
     data_partida = Column(Date)
 
-def __repr__(self):
-    return f'Partida {self.id}, {self.time_casa_id}, {self.time_visitante_id}, {self.gols_casa}, {self.gols_visitante}, {self.data_partida}'
+    def __repr__(self):
+        return f'Partida {self.id}, {self.time_casa_id}, {self.time_visitante_id}, {self.gols_casa}, {self.gols_visitante}, {self.data_partida}'
 
 
 if __name__ == "__main__":

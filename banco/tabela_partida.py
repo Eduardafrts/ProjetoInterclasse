@@ -19,7 +19,6 @@ def select_todos():
         .join(TimeVisitante, Partida.time_visitante_id == TimeVisitante.id)
     )
 
-
     # 2 - Executar o select
     partidas_casa = db_session.execute(partidas_sql).all()
 
@@ -31,12 +30,14 @@ def select_quantidade_total():
     qtd_total = db_session.execute(partidas_sql).scalar()
     return qtd_total
 
+
 print(select_quantidade_total())
 
 
 def salvar(time_casa_id, time_visitante_id, gols_casa, gols_visitante, data_partida):
     try:
-        partida_nova = Partida(time_casa_id=time_casa_id, time_visitante_id=time_visitante_id, gols_casa=gols_casa, gols_visitante=gols_visitante, data_partida=data_partida)
+        partida_nova = Partida(time_casa_id=time_casa_id, time_visitante_id=time_visitante_id, gols_casa=gols_casa,
+                               gols_visitante=gols_visitante, data_partida=data_partida)
         db_session.add(partida_nova)
         db_session.commit()
         flash("Partida criada com sucesso", "success")
@@ -48,3 +49,19 @@ def salvar(time_casa_id, time_visitante_id, gols_casa, gols_visitante, data_part
         db_session.rollback()
         flash("Ocorreu um erro, tente novamente", "error")
         print(f"Erro: {e}")
+
+
+def select_partida_time(id_time):
+    TimeCasa = aliased(Time)
+    TimeVisitante = aliased(Time)
+    partidas_sql = (
+        select(Partida, TimeCasa, TimeVisitante)
+        .join(TimeCasa, Partida.time_casa_id == TimeCasa.id)
+        .join(TimeVisitante, Partida.time_visitante_id == TimeVisitante.id)
+        .where(or_(Partida.id == id_time, Partida.time_visitante_id == id_time))
+    )
+    # 2 - Executar o select
+    partidas_casa = db_session.execute(partidas_sql).all()
+
+    return partidas_casa
+
